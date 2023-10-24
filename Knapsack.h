@@ -3,13 +3,14 @@
 
 #include <iostream>
 #include <variant>
+#include <any>
+#include <vector>
 #include "collect.h"
 
 using namespace std;
 using std::cout;
 using std::cin;
 using std::endl;
-
 
 
 void conditionalBehaviour(int condition, int resetsUsed, int totalResetsAllowed, char lastCharAttemptedToAdd) {
@@ -36,46 +37,96 @@ public:
 
     template<class T>
     bool putCharInKnapsack(T character) {
-        if (sizeof(character) - currentCapacity <= size ) {
-            conditionalBehaviour(1,0,0,'A');
-        }else{
+        if (sizeof(character) - currentCapacity <= size) {
+            conditionalBehaviour(1, 0, 0, 'A');
+        } else {
 
         }
     }
 
     template<class T>
     int getSizeTemplateFunc(T character) {
-        cout << "TYPE ID " << typeid(character).name() <<endl;
-        cout << "Size of --> "<< sizeof(character) <<endl;
+//        cout << "TYPE ID " << typeid(character).name() << endl;
+//        cout << "Size of --> " << sizeof(character) << endl;
     }
 
 
 };
 
-template<typename T>
-T generatedCharacterToClass(char generated) {
-//std::variant<A,B,C,D,E,F,G,R,S> generatedCharacterToClass(char generated) {
+//template<typename T>
+// T generatedCharacterToClass(char generated) {
+//
+////std::variant<A,B,C,D,E,F,G,R,S> generatedCharacterToClass(char generated) {
+//    char generatedUppercased = toupper(generated);
+//    if(A().getName() == generatedUppercased){
+//        return A();
+//    }else if(B().getName() == generatedUppercased){
+//        return B();
+//    }else if(C().getName() == generatedUppercased){
+//        return C();
+//    }else if(D().getName() == generatedUppercased){
+//        return D();
+//    }else if(E().getName() == generatedUppercased){
+//        return E();
+//    }else if(F().getName() == generatedUppercased){
+//        return F();
+//    }else if(G().getName() == generatedUppercased){
+//        return G();
+//    }else if(R().getName() == generatedUppercased){
+//        return R();
+//    }else{
+//        return S();
+//    }
+//};
+
+//void generatedCharacterToClassCaster( char generated, std::any matchedClass){
+//    char generatedUppercased = toupper(generated);
+//    // DONT DO ANY JUST CAST FUCKING IDIOT
+//    if (A().getName() == generatedUppercased) {
+//       any_cast<A>(matchedClass);
+//    } else if (B().getName() == generatedUppercased) {
+//        matchedClass = any_cast<B>(matchedClass);
+//    } else if (C().getName() == generatedUppercased) {
+//        matchedClass = any_cast<C>(matchedClass);
+//    } else if (D().getName() == generatedUppercased) {
+//        matchedClass = any_cast<D>(matchedClass);
+//    } else if (E().getName() == generatedUppercased) {
+//        matchedClass = any_cast<E>(matchedClass);
+//    } else if (F().getName() == generatedUppercased) {
+//        matchedClass = any_cast<F>(matchedClass);
+//    } else if (G().getName() == generatedUppercased) {
+//        matchedClass = any_cast<G>(matchedClass);
+//    } else if (R().getName() == generatedUppercased) {
+//        matchedClass = any_cast<R>(matchedClass);
+//    } else {
+//        matchedClass = any_cast<S>(matchedClass);
+//    }
+//}
+template<class T>
+T generatedCharacterToClassCaster( char generated){
     char generatedUppercased = toupper(generated);
-    if(A().getName() == generatedUppercased){
+    // DONT DO ANY JUST CAST FUCKING IDIOT
+    if (A().getName() == generatedUppercased) {
         return A();
-    }else if(B().getName() == generatedUppercased){
+    } else if (B().getName() == generatedUppercased) {
         return B();
-    }else if(C().getName() == generatedUppercased){
+    } else if (C().getName() == generatedUppercased) {
         return C();
-    }else if(D().getName() == generatedUppercased){
+    } else if (D().getName() == generatedUppercased) {
         return D();
-    }else if(E().getName() == generatedUppercased){
+    } else if (E().getName() == generatedUppercased) {
         return E();
-    }else if(F().getName() == generatedUppercased){
+    } else if (F().getName() == generatedUppercased) {
         return F();
-    }else if(G().getName() == generatedUppercased){
+    } else if (G().getName() == generatedUppercased) {
         return G();
-    }else if(R().getName() == generatedUppercased){
+    } else if (R().getName() == generatedUppercased) {
         return R();
-    }else{
+    } else {
         return S();
+        //terminate if s condition, or R dont rememer
     }
-};
+}
 
 bool isCharPositiveInt(char *characterToValidate) {
     string stringifiedChar = characterToValidate;

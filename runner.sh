@@ -1,4 +1,4 @@
 #!/bin/bash
-#g++ -std=c++17 -Wall -o Knapsack Knapsack.cpp
+rm Knapsack
 g++ -std=c++17  -o Knapsack Knapsack.cpp
 ./Knapsack 10 10 10
