@@ -12,14 +12,28 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+class Knapsack;
 
-void conditionalBehaviour(int condition, int resetsUsed, int totalResetsAllowed, char lastCharAttemptedToAdd) {
+
+void conditionalBehaviour(int condition, int resetsUsed, int totalResetsAllowed, char lastCharAttemptedToAdd,
+                          int characterSize) {
     switch (condition) {
         case (1):
+            cout << "Condition 1 is triggered because the size of the next object is too large: " << characterSize
+                 << endl;
             break;
         case (2):
+            if (resetsUsed == totalResetsAllowed) {
+                cout << "All resets used, program terminating" << endl;
+            } else {
+                cout << "Condition 2: Attempt to add an R object which triggers a reset. The number of used resets: "
+                     << resetsUsed << " out of " << totalResetsAllowed << endl;
+            }
             break;
         case (3):
+            cout << "Condition 3: Attempt to add an S object which triggers early termination" << endl;
+            cout << "Program Terminating" << endl;
+            abort();
             break;
     }
 }
@@ -30,15 +44,52 @@ public:
     int durability;
     int currentCapacity;
     int size;
+    vector<char> holdingCharacters;
 
-    Knapsack() {
+    Knapsack(int size, int durability) {
         this->currentCapacity = 0;
+        this->size = size;
+        this->durability = durability;
     }
+
+    void characterCountandTablePrinter() {
+        vector<pair<char, int> > characterBank;
+        //change to initializer list, dk why its not letting me do it now
+        characterBank.push_back(make_pair('A', sizeof(A)));
+        characterBank.push_back(make_pair('B', sizeof(B)));
+        characterBank.push_back(make_pair('C', sizeof(C)));
+        characterBank.push_back(make_pair('D', sizeof(D)));
+        characterBank.push_back(make_pair('E', sizeof(E)));
+        characterBank.push_back(make_pair('F', sizeof(F)));
+        characterBank.push_back(make_pair('G', sizeof(G)));
+        characterBank.push_back(make_pair('R', sizeof(R)));
+        characterBank.push_back(make_pair('S', sizeof(S)));
+        for (pair<char, int> character: characterBank) {
+            int charCount = count(holdingCharacters.begin(), holdingCharacters.end(), character.first);
+            if (charCount != 0) {
+                cout << character.first << " : " << charCount << ", " << character.second << endl;
+            }
+        }
+    };
+
+    void printSummary() {
+        cout << "=============" << endl;
+        cout << "Knapsack size : " << this->size << endl;
+        cout << "Added object size : " << this->currentCapacity << endl;
+        for (char currentCharacter: this->holdingCharacters) {
+            cout << currentCharacter;
+        }
+        cout << "=============" << endl;
+        this->characterCountandTablePrinter();
+        cout << "=============" << endl;
+    }
+
 
     template<class T>
     bool putCharInKnapsack(T character) {
         if (sizeof(character) - currentCapacity <= size) {
-            conditionalBehaviour(1, 0, 0, 'A');
+            conditionalBehaviour(1, 0, 0, 'A', sizeof(character));
+            this->printSummary();
         } else {
 
         }
@@ -51,6 +102,11 @@ public:
     }
 
 
+    template<class T>
+    void putInSack(T classObject) {
+        holdingCharacters.push_back(classObject.getName());
+        cout << "GRALKJJFD " << this->holdingCharacters[0] << endl;
+    };
 };
 
 //template<typename T>
@@ -102,28 +158,37 @@ public:
 //        matchedClass = any_cast<S>(matchedClass);
 //    }
 //}
-template<class T>
-T generatedCharacterToClassCaster( char generated){
+//template<class T>
+void generatedCharacterToClassCaster(char generated, Knapsack knapsack, int currentIteration) {
+//    Knapsack knapsack();
     char generatedUppercased = toupper(generated);
-    // DONT DO ANY JUST CAST FUCKING IDIOT
+//DO this, then if the type fits, explicitly push that type to knapsack vetor via template function, inside this if else case
     if (A().getName() == generatedUppercased) {
-        return A();
+//        return A();
+        A a;
+        knapsack.putInSack<A>(a);
     } else if (B().getName() == generatedUppercased) {
-        return B();
+        B b;
+        knapsack.putInSack<B>(b);
+//        return B();
     } else if (C().getName() == generatedUppercased) {
-        return C();
+//        return C();
     } else if (D().getName() == generatedUppercased) {
-        return D();
+//        return D();
     } else if (E().getName() == generatedUppercased) {
-        return E();
+//        return E();
     } else if (F().getName() == generatedUppercased) {
-        return F();
+//        return F();
     } else if (G().getName() == generatedUppercased) {
-        return G();
+//        return G();
     } else if (R().getName() == generatedUppercased) {
-        return R();
+//        return R();
+        conditionalBehaviour(2, currentIteration, knapsack.durability, 'S', sizeof(S));
+        knapsack.printSummary();
     } else {
-        return S();
+        conditionalBehaviour(3, currentIteration, knapsack.durability, 'S', sizeof(S));
+        knapsack.printSummary();
+//        return S();
         //terminate if s condition, or R dont rememer
     }
 }

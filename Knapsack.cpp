@@ -15,9 +15,6 @@ int main(int argc, char **argv) {
     if (validateArguments(argc, argv[1], argv[2], argv[3]) != true) {
         abort();
     } else {
-//classesCollection.push_back("meow");
-//classesCollection.push_back(1);
-//classesCollection.push_back(A());
         int size = stoi(argv[1]);
         int seed = stoi(argv[2]);
         int durability = stoi(argv[3]);
@@ -30,26 +27,28 @@ int main(int argc, char **argv) {
         cout << "Intended Size"<< sizeof(G) << endl;
         cout << "Intended Size"<< sizeof(R) << endl;
         cout << "Intended Size"<< sizeof(S) << endl;
+        for(int x = 0; x<= durability; x++){
+            Knapsack knapsack(size, durability);
+            char generated = generate(seed);
+            generatedCharacterToClassCaster(generated, knapsack, x);
 
+        }
 
-
-
-
-        Knapsack knapsack;
 //        object objA = knapsack.getSizeTemplateFunc('a');
-        knapsack.getSizeTemplateFunc('b');
-        knapsack.getSizeTemplateFunc('c');
-        S baseClassin;
+//        knapsack.getSizeTemplateFunc('b');
+//        knapsack.getSizeTemplateFunc('c');
+//        S baseClassin;
 //        generatedCharacterToClassCaster('a',matchedClassA);
 //        matchedClass = generatedCharacterToClassCaster('b',matchedClass);
-        auto aObj = generatedCharacterToClassCaster<>('d');
-        auto bObj = generatedCharacterToClassCaster<>('b');
+//        auto aObj = generatedCharacterToClassCaster<>('d');
+//        auto bObj = generatedCharacterToClassCaster<>('b');
 
 
+//        generatedCharacterToClassCaster('b');
 
-        cout << "A:" << sizeof(aObj) << endl;
-        cout << "MEOW MEOW MOEW" <<endl;
-        cout << "B:" << sizeof(bObj) << endl;
+//        cout << "A:" << sizeof(aObj) << endl;
+//        cout << "MEOW MEOW MOEW" <<endl;
+//        cout << "B:" << sizeof(bObj) << endl;
 //        Knapsack.pushToKnapsack(aObj);
 //        Knapsack.pushToKnapsack(bObj);
 //        cout << typeid(A).name() <<endl;
